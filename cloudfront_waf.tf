@@ -5,7 +5,7 @@ resource "aws_wafv2_web_acl" "web_portal" {
   provider = aws.prod_perimeter_us
 
   name        = "${var.environment}_WebACLv2"
-  description = "WebACL associated to Mobility Collaboration CloudFront Infrastructure"
+  description = "WebACL for stuff"
   scope       = "CLOUDFRONT"
 
   default_action {
