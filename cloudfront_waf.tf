@@ -2,9 +2,9 @@
 ## CloudFront WAF
 ##
 resource "aws_wafv2_web_acl" "web_portal" {
-  provider = aws.prod_perimeter_us
+  region      = "us-east-1"
 
-  name        = "${var.environment}_WebACLv2"
+  name        = "test-${var.environment}_WebACLv2"
   description = "WebACL for stuff"
   scope       = "CLOUDFRONT"
 
@@ -26,7 +26,7 @@ resource "aws_wafv2_web_acl" "web_portal" {
       not_statement {
         statement {
           geo_match_statement {
-            country_codes = var.allowed_countries
+            country_codes = ["AU"]
           }
         }
       }
@@ -34,7 +34,7 @@ resource "aws_wafv2_web_acl" "web_portal" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${var.environment}-georestrictions-metrics"
+      metric_name                = "test-${var.environment}-georestrictions-metrics"
       sampled_requests_enabled   = true
     }
   }
@@ -58,7 +58,7 @@ resource "aws_wafv2_web_acl" "web_portal" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${var.environment}-commonruleset-metrics"
+      metric_name                = "test-${var.environment}-commonruleset-metrics"
       sampled_requests_enabled   = true
     }
   }
@@ -81,7 +81,7 @@ resource "aws_wafv2_web_acl" "web_portal" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${var.environment}-amazonipreputationlistruleset-metrics"
+      metric_name                = "test-${var.environment}-amazonipreputationlistruleset-metrics"
       sampled_requests_enabled   = true
     }
   }
@@ -139,7 +139,7 @@ resource "aws_wafv2_web_acl" "web_portal" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${var.environment}-botcontrolruleset-common-metrics"
+      metric_name                = "test-${var.environment}-botcontrolruleset-common-metrics"
       sampled_requests_enabled   = true
     }
   }
@@ -163,14 +163,14 @@ resource "aws_wafv2_web_acl" "web_portal" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${var.environment}-ratebased-metrics"
+      metric_name                = "test-${var.environment}-ratebased-metrics"
       sampled_requests_enabled   = true
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = true
-    metric_name                = "${var.environment}-webacl-metrics"
+    metric_name                = "test-${var.environment}-webacl-metrics"
     sampled_requests_enabled   = true
   }
 
@@ -180,14 +180,14 @@ resource "aws_wafv2_web_acl" "web_portal" {
 ## CloudWatch Log Group for WAF Logs
 ##
 resource "aws_cloudwatch_log_group" "web_portal" {
-  provider = aws.prod_perimeter_us
+  region = "us-east-1"
 
   name = "aws-waf-logs-${var.environment}"
   tags = module.tags.all_tags
 }
 
 resource "aws_cloudwatch_log_resource_policy" "web_portal" {
-  provider = aws.prod_perimeter_us
+  region = "us-east-1"
 
   policy_name = "aws-waf-logs-${var.environment}"
   policy_document = jsonencode({
