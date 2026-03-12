@@ -3,6 +3,7 @@
 ##
 terraform {
   required_version = "~> 1.11.4"
+  region = "us-east-1"
 
   required_providers {
     aws = {
@@ -10,11 +11,4 @@ terraform {
       version = "~> 5.100.0"
     }
   }
-}
-
-
-
-provider "aws" {
-  region              = var.aws_region
-  #allowed_account_ids = [var.account_id]
 }
