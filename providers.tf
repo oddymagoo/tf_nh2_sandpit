@@ -10,5 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  access_key  = var.account_id
+  region      = var.aws_region
+  #env        = var.environment
 }

@@ -2,7 +2,7 @@
 ## CloudFront WAF
 ##
 resource "aws_wafv2_web_acl" "web_portal" {
-  region      = "us-east-1"
+  provider = aws
 
   name        = "test-${var.environment}_WebACLv2"
   description = "WebACL for stuff"
@@ -180,14 +180,14 @@ resource "aws_wafv2_web_acl" "web_portal" {
 ## CloudWatch Log Group for WAF Logs
 ##
 resource "aws_cloudwatch_log_group" "web_portal" {
-  region = "us-east-1"
+  provider = aws
 
   name = "aws-waf-logs-${var.environment}"
   tags = module.tags.all_tags
 }
 
 resource "aws_cloudwatch_log_resource_policy" "web_portal" {
-  region = "us-east-1"
+  provider = aws
 
   policy_name = "aws-waf-logs-${var.environment}"
   policy_document = jsonencode({
@@ -217,7 +217,7 @@ resource "aws_cloudwatch_log_resource_policy" "web_portal" {
 }
 
 resource "aws_wafv2_web_acl_logging_configuration" "web_portal" {
-  provider = aws.prod_perimeter_us
+  provider = aws
 
   log_destination_configs = [aws_cloudwatch_log_group.web_portal.arn]
   resource_arn            = aws_wafv2_web_acl.web_portal.arn
