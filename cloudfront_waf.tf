@@ -177,7 +177,7 @@ resource "aws_wafv2_web_acl" "web_portal" {
     sampled_requests_enabled   = true
   }
 
-  tags = module.tags.all_tags
+  #tags = module.tags.all_tags
 }
 
 ## CloudWatch Log Group for WAF Logs
@@ -186,7 +186,7 @@ resource "aws_cloudwatch_log_group" "web_portal" {
   provider = aws
 
   name = "aws-waf-logs-${var.environment}"
-  tags = module.tags.all_tags
+  #tags = module.tags.all_tags
 }
 
 resource "aws_cloudwatch_log_resource_policy" "web_portal" {
