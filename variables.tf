@@ -4,3 +4,9 @@ variable "environment" {
   type        = string
   default     = "dev"
 }
+
+variable "aws_region" {
+  description = "The AWS region where resources will be created"
+  type        = string
+  default     = "us-east-1"
+}
