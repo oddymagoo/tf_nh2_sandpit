@@ -1,12 +1,12 @@
 ##
 ## Define Log Group
 ##
-resource "aws_cloudwatch_log_group" "nothub2" {
-  name = "aws-waf-logs-mobility-collaboration-${var.environment}"
+resource "aws_cloudwatch_log_group" "nh2" {
+  name = "aws-waf-logs-test-${var.environment}"
   tags = module.tags.all_tags
 }
 
-resource "aws_cloudwatch_log_resource_policy" "nothub2" {
+resource "aws_cloudwatch_log_resource_policy" "nh2" {
   #provider = aws.prod_perimeter_us
 
   policy_name = "aws-waf-logs-mc-nothub2-${var.environment}"
@@ -22,7 +22,7 @@ resource "aws_cloudwatch_log_resource_policy" "nothub2" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ],
-        Resource = "${aws_cloudwatch_log_group.nothub2.arn}:*",
+        Resource = "${aws_cloudwatch_log_group.nh2.arn}:*",
         Condition = {
           ArnLike = {
             "aws:SourceArn" = "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
