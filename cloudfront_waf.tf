@@ -184,47 +184,9 @@ resource "aws_wafv2_web_acl" "web_portal" {
 
 ## CloudWatch Log Group for WAF Logs
 ##
-resource "aws_cloudwatch_log_group" "web_portal" {
-  provider = aws
-
-  name = "aws-waf-logs-${var.environment}"
-  #tags = module.tags.all_tags
-}
-
-resource "aws_cloudwatch_log_resource_policy" "web_portal" {
-  provider = aws
-
-  policy_name = "aws-waf-logs-${var.environment}"
-  policy_document = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          Service = "delivery.logs.amazonaws.com"
-        },
-        Action = [
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ],
-        Resource = "${aws_cloudwatch_log_group.web_portal.arn}:*",
-        Condition = {
-          ArnLike = {
-            "aws:SourceArn" = "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
-          },
-          StringEquals = {
-            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
-          }
-        }
-      }
-    ]
-  })
-}
-
 resource "aws_wafv2_web_acl_logging_configuration" "web_portal" {
   provider = aws
-
-  log_destination_configs = [aws_cloudwatch_log_group.web_portal.arn]
+  log_destination_configs = [aws_cloudwatch_log_group.nh2.arn]
   resource_arn            = aws_wafv2_web_acl.web_portal.arn
-  depends_on = [ aws_cloudwatch_log_resource_policy.web_portal ]
+  depends_on = [ aws_cloudwatch_log_resource_policy.nh2 ]
 }
