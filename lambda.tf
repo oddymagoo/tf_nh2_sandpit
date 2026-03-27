@@ -5,7 +5,10 @@ resource "aws_lambda_function" "hello_world_function" {
   runtime       = "python3.9"
 
   filename         = "${path.module}/lambda/helloworld.zip"
-  source_code_hash = filebase64sha256("${path.module}/lambda/helloworld.zip")
+  #source_code_hash = filebase64sha256("${path.module}/lambda/helloworld.zip")
+  #filename         = "/lambda/helloworld.zip"
+  #source_code_hash = filebase64sha256("lambda/helloworld.zip")
+
 
   environment {
     variables = {
