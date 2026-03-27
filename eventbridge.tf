@@ -11,5 +11,5 @@ resource "aws_cloudwatch_event_target" "lambda_target" {
   rule           = aws_cloudwatch_event_rule.lambda_schedule.name
   event_bus_name = "default"
   target_id      = "lambda"
-  arn            = aws_lambda_function.my_lambda.arn
+  arn            = aws_lambda_function.hello_world_function.arn
 }
