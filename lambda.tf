@@ -4,8 +4,8 @@ resource "aws_lambda_function" "hello_world_function" {
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.9"
 
-  filename         = "${path.module}/lambda/helloworld.zip"
-  source_code_hash = filebase64sha256("${path.module}/lambda/helloworld.zip")
+  filename         = "/config/data/tf_nh2_sandpit/lambda/helloworld.zip"
+  source_code_hash = filebase64sha256("/config/data/tf_nh2_sandpit/lambda/helloworld.zip")
 
   environment {
     variables = {
