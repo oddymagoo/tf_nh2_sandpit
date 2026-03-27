@@ -1,3 +1,4 @@
 # This needs to be in place before you do the initial add/commit. Otherwise the .exe file will be push to the repo and possibly cause issues with it being too large.
 # Local .terraform directories
 .terraform/
+__*
